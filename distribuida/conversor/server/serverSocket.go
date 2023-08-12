@@ -7,6 +7,7 @@ import (
 	"net"
 	"os"
 	"pcd/distribuida/conversor/base"
+	//"time"
 )
 
 func main() {
@@ -41,14 +42,14 @@ func ServerTCPConversor() {
 	// loop infinito para aceitar conexões
 	for {
 		// aceita conexão (fechamento da conexão é feito pela goroutine)
-		fmt.Println("Aguardando conexão...")
+		//fmt.Println("Aguardando conexão...")
 		conn, err := l.Accept()
 		fmt.Println("Conexão estabelecida...")
 		base.HandleError(err)
 
 		// cria goroutine para tratar a conexão
 		go handleTCPConnection(conn)
-		fmt.Println("goroutine criada... handleTCPConnection")
+		//fmt.Println("goroutine criada... handleTCPConnection")
 
 	}
 
@@ -106,6 +107,9 @@ func handleTCPConnection(conn net.Conn) {
 
 	// loop infinito para receber requests do cliente
 	for {
+		// dormir por 2 nanosegundos (testes)
+		//time.Sleep(2 * time.Nanosecond)
+
 		// recebe request e decodifica com JSON (unmarshal)
 		err := jsonDecoder.Decode(&msgFromClient)
 		if err != nil && err.Error() == "EOF" {
@@ -113,6 +117,8 @@ func handleTCPConnection(conn net.Conn) {
 			//conn.Close() // O fechamento da conexão será feito pelo "defer"
 			break
 		}
+
+		//fmt.Println("Request recebido...")
 
 		//fmt.Println("msgFromClient: ", msgFromClient)
 
@@ -136,9 +142,14 @@ func handleUDPRequest(msgFromClient []byte, n int, conn *net.UDPConn, addr *net.
 	var request base.RequestConversor
 	var reply base.RequestConversor
 
+	// dormir por 2 nanosegundos (testes)
+	//time.Sleep(2 * time.Nanosecond)
+
 	// decodifica request com JSON (unmarshal)
 	err := json.Unmarshal(msgFromClient[:n], &request)
 	base.HandleError(err)
+
+	//fmt.Println("Request recebido...")
 
 	// processa o request e cria a resposta para o cliente
 	// resultado := base.ConversorMedidas{}.Invoke(request)

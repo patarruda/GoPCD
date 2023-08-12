@@ -24,5 +24,5 @@ go build clientSocket.go
 REM Execute o programa para a quantidade CLIENTS estabelecida
 for /L %%i in (1,1,%CLIENTES%) do (
     REM cliente TCP, 10000 invocações, CelsiusToFahrenheit
-    start /B clientSocket.exe %PROTOCOLO% %CLIENTES%_%%i 10000 C F
+    start /B clientSocket.exe %PROTOCOLO% %CLIENTES% %%i 10000 C F
 )
