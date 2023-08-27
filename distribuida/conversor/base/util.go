@@ -8,10 +8,17 @@ import (
 )
 
 const (
-	HOST      = "localhost"
-	PORTA_TCP = ":1313"
-	PORTA_UDP = ":1314"
-	PORTA_RPC = ":1234"
+	HOST             = "localhost"
+	PORTA_TCP        = ":1313"
+	PORTA_UDP        = ":1314"
+	PORTA_RPC        = ":1234"
+	PORTA_RABBITMQ   = ":5672"
+	PORTA_MQTT       = ":1883"
+	USR_PSW_RABBITMQ = "guest:guest@"
+	FILA_REQUESTS    = "requests_conversor"
+	FILA_REPLIES     = "replies_conversor"
+	TOPIC_REQUESTS   = "requests/client/"
+	TOPIC_REPLIES    = "replies/client/"
 )
 
 type RequestConversor struct {
@@ -29,8 +36,14 @@ func HandleError(err error) {
 
 func HandleErrorMsg(err error, msg string) {
 	if err != nil {
-		fmt.Println(msg, ": ", err.Error())
+		fmt.Println(msg, "\n  -> ", err.Error())
 		os.Exit(1) // encerra o programa com status 1 (erro)
+	}
+}
+
+func HandleNonFatal(err error, msg string) {
+	if err != nil {
+		fmt.Println(msg, "\n  -> ", err.Error())
 	}
 }
 

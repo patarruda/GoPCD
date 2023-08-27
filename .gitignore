@@ -15,3 +15,6 @@ concorrencia/testesChString.txt
 concorrencia/testesMutex.txt
 helloWorld/helloWorld.go
 helloWorld/pokemon_.go
+distribuida/conversor/mqtt/client/bkpMed.csv
+distribuida/conversor/mqtt/client/topicosMqtt.png
+distribuida/conversor/rabittmq/client/clientecomthreads.txt

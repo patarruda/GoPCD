@@ -38,7 +38,9 @@ func main() {
 	base.HandleErrorMsg(err, "Erro ao converter clientes")
 	clientID, err = strconv.Atoi(os.Args[2])
 	base.HandleErrorMsg(err, "Erro ao converter o id_do_cliente")
-	isClienteMedio = clientID == (intClientes/2)+1 // Para identificar o cliente que deve ter o RTT registrado
+
+	// Para identificar o cliente que deve ter o RTT registrado
+	isClienteMedio = clientID == (intClientes/2)+1
 
 	// TEMPO TOTAL - Inicia a contagem do tempo
 	//tt_inicio := time.Now()
@@ -93,21 +95,21 @@ func ClientRPC(numRequests int, fromUnit string, toUnit string) {
 		elapsedTime := time.Since(startTime)
 		elapsedTimeStr := fmt.Sprintf("%d", elapsedTime.Nanoseconds()) // nanosegundos
 		if isClienteMedio {
-			record := []string{
-				"rpc",
-				clientes,
-				strconv.Itoa(clientID),
-				elapsedTimeStr,
-			}
-			writeToCSV(record)
+			//record := []string{
+			//	"rpc",
+			//	clientes,
+			//	strconv.Itoa(clientID),
+			//	elapsedTimeStr,
+			//}
+			//writeToCSV(record)
 			// Imprime o RTT
 			fmt.Printf("Cliente %d: Requisição %d - RTT: %s\n", clientID, i+1, elapsedTimeStr)
 		}
 
 		// RTT e TEMPO TOTAL - Deixar comentado para testes de desempenho
 		// Imprime a resposta do servidor
-		//fmt.Printf("Cliente %d: Conversão %d: %.2f %s para %s => %.2f %s\n", clientID, i+1, req.Valor,
-		//	req.FromUnit, req.ToUnit, reply.Valor, reply.ToUnit)
+		fmt.Printf("Cliente %d: Conversão %d: %.2f %s para %s => %.2f %s\n", clientID, i+1, req.Valor,
+			req.FromUnit, req.ToUnit, reply.Valor, reply.ToUnit)
 
 	}
 

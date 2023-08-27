@@ -1,0 +1,29 @@
+MQTT
+
+- Broker recusando cliente após muitas reconexões
+- Broker lento/travando
+
+Solução:
+opts.SetCleanSession(true) // limpar sessão deste cliente do broker quando desconectar
+persist false
+reinstalação do mosquitto
+
+
+- QoS 1 vs QoS 0
+
+Não houve perda de mensagens com o qos0, com algum ganho de rendimento.
+Com o aumento de clientes, com o qos1 a aplicação fica travando no token.wait após Publish
+
+- Uso de threads no servidor (1 thread por cliente)
+
+Não houve impacto nas medições
+
+- Implementação com busy waiting vs variável condicional
+
+Com busy waiting (loop checando se resposta foi recebida) o desempenho cai muito com o aumento do número de clientes.
+Solucionado com a utilização de variável condicional.
+
+
+DOCKER
+
+Muita lentidão rodando os brokers através do Docker no Windows

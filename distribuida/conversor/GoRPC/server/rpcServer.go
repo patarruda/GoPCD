@@ -10,7 +10,7 @@ import (
 // ConversorService é o objeto (struct) que será registrado para ser chamado remotamente via RPC
 type ConversorService struct{}
 
-// Converter é o método que será chamado remotamente via RPC
+// Converter é o método que será chamado remotamente
 func (s *ConversorService) Converter(req base.RequestConversor, reply *base.RequestConversor) error {
 	*reply = base.ConversorMedidas{}.Invoke(req)
 	return nil
